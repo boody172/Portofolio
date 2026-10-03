@@ -272,6 +272,7 @@
     $$("#tabs button").forEach((b) => {
       const n = b.dataset.tab === "all" ? all.length : all.filter((p) => p.type === b.dataset.tab).length;
       b.innerHTML = `${t("tabs." + b.dataset.tab)}<sup>${n}</sup>`;
+      b.hidden = n === 0 && b.dataset.tab !== "all";
       b.classList.toggle("is-active", b.dataset.tab === state.tab);
       b.setAttribute("aria-selected", b.dataset.tab === state.tab);
     });
@@ -328,7 +329,8 @@
   });
   $("#showreelBtn").addEventListener("click", () => {
     const W = DATA.worlds[state.world];
-    openModal(0, [{ id: "showreel", world: state.world, type: "video", title: { ar: "الشوريل", en: "Showreel" }, category: W.short, video: W.showreel, ratio: "16/9", cover: W.cover }], { noHash: true });
+    const src = DATA.projects.find((p) => p.video === W.showreel);
+    openModal(0, [{ id: "showreel", world: state.world, type: "video", title: { ar: "الشوريل", en: "Showreel" }, category: W.short, video: W.showreel, ratio: W.showreelRatio || src?.ratio || "16/9", cover: src?.cover || W.cover }], { noHash: true });
   });
   addEventListener("resize", moveInk);
 
@@ -415,6 +417,8 @@
           ? `<iframe src="${esc(url)}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${esc(L(p.title))}"></iframe>`
           : `<video src="${esc(v.src)}" ${s.poster ? `poster="${esc(s.poster)}"` : ""} controls autoplay playsinline preload="auto"></video>`
       }</div>`;
+      const vid = $("video", media);
+      if (vid) vid.play().catch(() => { vid.muted = true; vid.play().catch(() => {}); });
     } else {
       const src = mediaSrc(s);
       media.innerHTML = `<img src="${esc(src)}" alt="${esc(L(p.title))}${s.caption ? " — " + esc(L(s.caption)) : ""}">`;
