@@ -434,8 +434,9 @@
     }
     stage.classList.toggle("is-portrait", portrait);
     $("#stagePrev").hidden = $("#stageNext").hidden = slides.length < 2 && M.list.length < 2;
-    $("#stageCounter").textContent = slides.length > 1 ? `${M.slide + 1} / ${slides.length}` : "";
-    $("#stageCounter").hidden = slides.length < 2;
+    const cap = s.caption ? L(s.caption) : "";
+    $("#stageCounter").textContent = [slides.length > 1 ? `${M.slide + 1} / ${slides.length}` : "", cap].filter(Boolean).join(" — ");
+    $("#stageCounter").hidden = slides.length < 2 && !cap;
     $$("#thumbs button").forEach((b, i) => {
       b.classList.toggle("is-active", i === M.slide);
       if (i === M.slide) b.scrollIntoView({ block: "nearest", inline: "center", behavior: reduceMotion ? "auto" : "smooth" });

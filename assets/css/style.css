@@ -477,7 +477,7 @@ body[data-world="home"] .contact__mail:hover { color: var(--marketing); }
 .stage__nav .arrow { width: 11px; height: 11px; }
 .stage__nav--prev { inset-inline-start: 16px; }
 .stage__nav--next { inset-inline-end: 16px; }
-.stage__counter { position: absolute; bottom: 14px; inset-inline-start: 50%; transform: translateX(-50%); font-family: var(--font-en); font-size: 0.8rem; padding: 4px 12px; border-radius: 999px; background: rgba(11,11,13,0.6); }
+.stage__counter { position: absolute; bottom: 14px; inset-inline-start: 50%; transform: translateX(-50%); font-family: var(--font-en); font-size: 0.8rem; padding: 4px 12px; border-radius: 999px; background: rgba(11,11,13,0.6); white-space: nowrap; max-width: calc(100% - 140px); overflow: hidden; text-overflow: ellipsis; }
 [dir="rtl"] .stage__counter { transform: translateX(50%); }
 .thumbs { grid-area: thumbs; display: flex; gap: 8px; padding: 10px; overflow-x: auto; background: var(--bg); scrollbar-width: thin; }
 .thumbs:empty { display: none; }
