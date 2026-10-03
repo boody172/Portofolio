@@ -488,5 +488,28 @@ window.PORTFOLIO = {
         { src: AR("master-bedroom-04-window-corner.jpg"), caption: { ar: "ركن الشباك", en: "Window corner" } },
       ],
     },
+    {
+      id: "modern-villa",
+      world: "architecture",
+      type: "image",
+      featured: true,
+      size: "wide",
+      category: { ar: "تصميم داخلي", en: "Interior Design" },
+      title: { ar: "فيلا مودرن — واجهة وتصميم داخلي", en: "Modern Villa — Exterior & Interiors" },
+      description: {
+        ar: "مشروع فيلا مودرن من الخارج للداخل: منظور ليلي للواجهة الخلفية بحمام سباحة وتراس مغطّى بواجهات زجاج، وليفنج بإطلالة على البحر بحوائط حجر طبيعي وإطارات خشب، وغرفة نوم بدولاب بأبواب شبك مقوّسة وخلفية خشب، وغرفة أطفال بسريرين وحائط شرائح بإضاءة مخفية وركن مذاكرة.",
+        en: "A modern villa from outside in: a night view of the rear façade with pool and glazed covered terrace, a sea-view living room with natural stone walls and timber frames, a bedroom with an arched cane-mesh wardrobe and wood backdrop, and a twin kids' room with a backlit slatted wall and a study corner.",
+      },
+      year: 2026,
+      cover: AR("villa-01-exterior-pool-night.jpg"),
+      gallery: [
+        { src: AR("villa-01-exterior-pool-night.jpg"), caption: { ar: "الواجهة والبيسين — منظور ليلي", en: "Exterior & pool at night" } },
+        { src: AR("villa-02-living-sea-view.jpg"), caption: { ar: "الليفنج بإطلالة على البحر", en: "Sea-view living room" } },
+        { src: AR("villa-03-bedroom-cane-wardrobe.jpg"), caption: { ar: "غرفة النوم", en: "Bedroom" } },
+        { src: AR("villa-04-kids-room-twin-beds.jpg"), caption: { ar: "غرفة الأطفال", en: "Kids' room" } },
+        { src: AR("villa-05-kids-room-desk.jpg"), caption: { ar: "غرفة الأطفال — منظور الشباك", en: "Kids' room — window view" } },
+        { src: AR("villa-06-kids-room-study.jpg"), caption: { ar: "غرفة الأطفال — ركن المذاكرة", en: "Kids' room — study corner" } },
+      ],
+    },
   ],
 };
