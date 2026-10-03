@@ -438,5 +438,19 @@ window.PORTFOLIO = {
         { src: AR("parametric-building-02-dusk-view.jpg"), caption: { ar: "منظور وقت الغروب", en: "Dusk view" } },
       ],
     },
+    {
+      id: "organic-pavilion",
+      world: "architecture",
+      type: "image",
+      size: "wide",
+      category: { ar: "تصميم معماري", en: "Architecture" },
+      title: { ar: "مبنى عضوي بقشرة مثقّبة", en: "Organic Perforated Shell Building" },
+      description: {
+        ar: "تصميم معماري لمبنى بتشكيل عضوي: قشرة متموّجة واحدة بتغطي الكتلة كلها بتكسية فسيفساء فاتحة، وفتحات سداسية بأحجام متدرّجة بتدخّل الإضاءة الطبيعية، وواجهة زجاجية منحنية في الدور الأرضي بتفتح على الشارع.",
+        en: "An organic architectural form: a single undulating shell covering the whole volume in light mosaic cladding, hexagonal openings in graded sizes bringing in daylight, and a curved glazed ground-floor façade opening onto the street.",
+      },
+      year: 2026,
+      gallery: [{ src: AR("organic-pavilion-street-view.jpg"), caption: { ar: "منظور من الشارع", en: "Street view" } }],
+    },
   ],
 };
