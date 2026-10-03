@@ -185,7 +185,8 @@
     const cover = coverOf(p);
     const preview = previewOf(p);
     const isVid = p.type === "video";
-    const count = !isVid && p.gallery ? ` · ${p.gallery.length}` : "";
+    const n = slidesOf(p).length;
+    const count = !isVid || n > 1 ? ` · ${n}` : "";
     const size = p.size === "wide" ? " card--wide" : p.size === "tall" ? " card--tall" : "";
     return `<article class="card${size}" tabindex="0" role="button" data-id="${esc(p.id)}" data-world="${p.world}"
         data-cursor="${isVid ? "play" : "view"}" style="--fallback:var(--${p.world});transition-delay:${Math.min(i, 8) * 60}ms"
