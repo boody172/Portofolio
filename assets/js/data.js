@@ -329,5 +329,22 @@ window.PORTFOLIO = {
       video: AR("egyptian-station-hall.mp4"),
       ratio: "16/9",
     },
+    {
+      id: "villas-construction-progress",
+      world: "architecture",
+      type: "video",
+      featured: true,
+      size: "tall",
+      category: { ar: "متابعة تنفيذ", en: "Construction" },
+      title: { ar: "متابعة تنفيذ مشروع فيلات", en: "Villa Compound — Construction Progress" },
+      description: {
+        ar: "فيديو بيوثّق مراحل التنفيذ في موقع مشروع فيلات: استكمال المباني (البلوك)، أعمال اللياسة في فيلات 22 و52 و88، ونظافة الموقع العام.",
+        en: "Documenting site progress on a villa compound: blockwork completion, plastering on villas 22, 52 and 88, and general site cleaning.",
+      },
+      year: 2026,
+      cover: AR("villas-construction-progress.jpg"),
+      video: AR("villas-construction-progress.mp4"),
+      ratio: "9/16",
+    },
   ],
 };
