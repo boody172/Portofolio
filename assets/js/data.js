@@ -394,7 +394,6 @@ window.PORTFOLIO = {
       id: "door-color-scheme",
       world: "architecture",
       type: "image",
-      size: "tall",
       category: { ar: "ألوان وتشطيبات", en: "Colour & Finishes" },
       title: { ar: "لوحة ألوان الأبواب — توزيع حسب الفراغ", en: "Door Colour Scheme — Coded by Space" },
       description: {
@@ -408,7 +407,6 @@ window.PORTFOLIO = {
       id: "modern-bedroom-design",
       world: "architecture",
       type: "image",
-      size: "wide",
       category: { ar: "تصميم داخلي", en: "Interior Design" },
       title: { ar: "تصميم داخلي — غرفة نوم مودرن", en: "Modern Bedroom Interior" },
       description: {
@@ -420,6 +418,24 @@ window.PORTFOLIO = {
         { src: AR("bedroom-01-room-overview.jpg"), caption: { ar: "منظور عام للغرفة", en: "Room overview" } },
         { src: AR("bedroom-02-wardrobe-tv-wall.jpg"), caption: { ar: "الدولاب الزجاج ووحدة التلفزيون", en: "Glass wardrobe & TV wall" } },
         { src: AR("bedroom-03-desk-bed.jpg"), caption: { ar: "التسريحة والسرير", en: "Vanity desk & bed" } },
+      ],
+    },
+    {
+      id: "parametric-building",
+      world: "architecture",
+      type: "image",
+      featured: true,
+      size: "wide",
+      category: { ar: "تصميم معماري", en: "Architecture" },
+      title: { ar: "مبنى بتصميم انسيابي (بارامتريك)", en: "Fluid Parametric Building" },
+      description: {
+        ar: "تصميم واجهة لمبنى بتشكيل انسيابي: غلاف منحني متصل بيرتفع من الأرض ويلف على المبنى، وواجهة زجاجية كبيرة بقطاعات رأسية، ودور أرضي شفاف مفتوح على الشارع. المنظورين بيعرضوا المبنى في سياقه العمراني بإضاءة النهار وإضاءة الغروب.",
+        en: "A façade design for a building with a fluid form: a continuous curved shell rising from the ground and wrapping the volume, a large glazed curtain wall, and a transparent ground floor open to the street. The two views show it in its urban context in daylight and at dusk.",
+      },
+      year: 2026,
+      gallery: [
+        { src: AR("parametric-building-01-street-view.jpg"), caption: { ar: "منظور من الشارع", en: "Street view" } },
+        { src: AR("parametric-building-02-dusk-view.jpg"), caption: { ar: "منظور وقت الغروب", en: "Dusk view" } },
       ],
     },
   ],
