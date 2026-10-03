@@ -368,5 +368,27 @@ window.PORTFOLIO = {
         { video: AR("pharaonic-station-walkthrough.mp4"), poster: AR("pharaonic-station-walkthrough.jpg"), ratio: "1284/722", caption: { ar: "جولة فيديو داخل المحطة", en: "Video walkthrough" } },
       ],
     },
+    {
+      id: "modern-interior-design",
+      world: "architecture",
+      type: "image",
+      featured: true,
+      size: "wide",
+      category: { ar: "تصميم داخلي", en: "Interior Design" },
+      title: { ar: "تصميم داخلي مودرن — ريسبشن وسفرة", en: "Modern Interior — Reception & Dining" },
+      description: {
+        ar: "تصميم داخلي معاصر بألوان محايدة وتباين بين الرخام الأسود والخشب والحوائط البيضاء ببانوهات كلاسيك. التصميم بيجمع منطقة جلوس، وسفرة بإضاءة معلّقة مميزة، وحائط ديكوري بنقشة ثلاثية الأبعاد ومراية دائرية، مع سقف معلّق بسبوتات مغناطيسية وشرائح خشب بإضاءة مخفية.",
+        en: "A contemporary interior in a neutral palette, contrasting black marble, warm wood and white classic wall panelling. It brings together a seating area, a dining space with sculptural pendant lighting, and a feature wall with a 3D pattern and round mirror, under a dropped ceiling with track spots and backlit wood slats.",
+      },
+      year: 2026,
+      cover: AR("modern-interior-05-dining-feature-lighting.jpg"),
+      gallery: [
+        { src: AR("modern-interior-01-seating-area.jpg"), caption: { ar: "منطقة الجلوس", en: "Seating area" } },
+        { src: AR("modern-interior-02-dining-view.jpg"), caption: { ar: "منظور السفرة", en: "Dining view" } },
+        { src: AR("modern-interior-03-dining-room.jpg"), caption: { ar: "السفرة", en: "Dining room" } },
+        { src: AR("modern-interior-04-reception-feature-wall.jpg"), caption: { ar: "الريسبشن والحائط الديكوري", en: "Reception & feature wall" } },
+        { src: AR("modern-interior-05-dining-feature-lighting.jpg"), caption: { ar: "السفرة وحائط الخشب بالإضاءة", en: "Dining & backlit wood wall" } },
+      ],
+    },
   ],
 };
