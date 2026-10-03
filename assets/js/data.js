@@ -404,5 +404,23 @@ window.PORTFOLIO = {
       year: 2026,
       gallery: [AR("door-color-scheme-board.jpg")],
     },
+    {
+      id: "modern-bedroom-design",
+      world: "architecture",
+      type: "image",
+      size: "wide",
+      category: { ar: "تصميم داخلي", en: "Interior Design" },
+      title: { ar: "تصميم داخلي — غرفة نوم مودرن", en: "Modern Bedroom Interior" },
+      description: {
+        ar: "تصميم غرفة نوم مودرن بألوان رمادية هادئة: دولاب بأبواب زجاج فاميه وإضاءة داخلية، ووحدة تلفزيون بخلفية خشب، وتسريحة مكتب بمراية دائرية مضيئة، وسقف معلّق بإضاءة مخفية على الأطراف، وأرضية رخام فاتح.",
+        en: "A modern bedroom in calm greys: a smoked-glass wardrobe with internal lighting, a TV unit on a wood-slat backdrop, a desk-vanity with a backlit round mirror, a dropped ceiling with concealed perimeter lighting, and light marble flooring.",
+      },
+      year: 2026,
+      gallery: [
+        { src: AR("bedroom-01-room-overview.jpg"), caption: { ar: "منظور عام للغرفة", en: "Room overview" } },
+        { src: AR("bedroom-02-wardrobe-tv-wall.jpg"), caption: { ar: "الدولاب الزجاج ووحدة التلفزيون", en: "Glass wardrobe & TV wall" } },
+        { src: AR("bedroom-03-desk-bed.jpg"), caption: { ar: "التسريحة والسرير", en: "Vanity desk & bed" } },
+      ],
+    },
   ],
 };
