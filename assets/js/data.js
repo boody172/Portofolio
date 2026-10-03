@@ -509,6 +509,7 @@ window.PORTFOLIO = {
         { src: AR("villa-04-kids-room-twin-beds.jpg"), caption: { ar: "غرفة الأطفال", en: "Kids' room" } },
         { src: AR("villa-05-kids-room-desk.jpg"), caption: { ar: "غرفة الأطفال — منظور الشباك", en: "Kids' room — window view" } },
         { src: AR("villa-06-kids-room-study.jpg"), caption: { ar: "غرفة الأطفال — ركن المذاكرة", en: "Kids' room — study corner" } },
+        { src: AR("villa-07-kids-room-wardrobe.jpg"), caption: { ar: "غرفة الأطفال — حائط الدولاب", en: "Kids' room — wardrobe wall" } },
       ],
     },
   ],
