@@ -291,12 +291,12 @@ body[data-world="home"] .eyebrow { color: var(--muted); }
 .card__media video { position: absolute; inset: 0; opacity: 0; }
 .card.is-previewing .card__media video { opacity: 1; }
 .card:hover .card__media img, .card:focus-visible .card__media img { transform: scale(1.06); }
-.card::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.85) 100%); transition: opacity 0.4s; }
+.card::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 62%, rgba(0,0,0,0.92) 100%); transition: opacity 0.4s; }
 .card__body { position: absolute; inset-inline: 0; bottom: 0; padding: clamp(16px, 2vw, 24px); }
 .card__cat { font-size: 0.75rem; letter-spacing: 0.08em; color: var(--accent); }
 .card[data-world="marketing"] .card__cat { color: var(--marketing); }
 .card[data-world="architecture"] .card__cat { color: var(--architecture); }
-.card__title { margin: 0.15rem 0 0; font-size: clamp(1.05rem, 1.6vw, 1.35rem); font-weight: 600; line-height: 1.35; }
+.card__title { text-shadow: 0 2px 12px rgba(0,0,0,0.6); margin: 0.15rem 0 0; font-size: clamp(1.05rem, 1.6vw, 1.35rem); font-weight: 600; line-height: 1.35; }
 .card__year { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
 .card__badge {
   position: absolute; top: 14px; inset-inline-start: 14px;
@@ -492,7 +492,7 @@ body[data-world="home"] .contact__mail:hover { color: var(--marketing); }
 .info__meta { display: grid; gap: 0; margin: 0 0 1.6rem; border-top: 1px solid var(--line); }
 .info__meta div { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.75rem; border-bottom: 1px solid var(--line); font-size: 0.9rem; }
 .info__meta dt { color: var(--muted); }
-.info__meta dd { margin: 0; text-align: end; }
+.info__meta dd { margin: 0; text-align: end; unicode-bidi: plaintext; }
 .info__tools { display: flex; flex-wrap: wrap; gap: 6px; }
 .info__tools span { font-size: 0.78rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: var(--bg-3); }
 .info__pager { margin-top: auto; padding-top: 1.6rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
