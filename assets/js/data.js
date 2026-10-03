@@ -390,5 +390,19 @@ window.PORTFOLIO = {
         { src: AR("modern-interior-05-dining-feature-lighting.jpg"), caption: { ar: "السفرة وحائط الخشب بالإضاءة", en: "Dining & backlit wood wall" } },
       ],
     },
+    {
+      id: "door-color-scheme",
+      world: "architecture",
+      type: "image",
+      size: "tall",
+      category: { ar: "ألوان وتشطيبات", en: "Colour & Finishes" },
+      title: { ar: "لوحة ألوان الأبواب — توزيع حسب الفراغ", en: "Door Colour Scheme — Coded by Space" },
+      description: {
+        ar: "لوحة اختيار ألوان الأبواب لمبنى تعليمي/علاجي: كل نوع فراغ له لون RAL مميز يسهّل التعرّف عليه — غرفة الأنشطة (RAL 1034 أصفر باستيل)، الفصل (RAL 5024 أزرق باستيل)، غرفة الراحة (RAL 1001 بيج)، غرفة العلاج (RAL 6019 أخضر باستيل)، الحمامات (RAL 7032)، وغرف الـ IT والكهرباء (RAL 9023)، مع أبواب ألومنيوم RAL 9011 جرافيت. اللوحة بتربط كل لون بصورة الفراغ الفعلية في الموقع والممرات.",
+        en: "A door colour board for an educational/therapy building where each space type gets its own RAL colour for easy wayfinding — activity room (RAL 1034 pastel yellow), classroom (RAL 5024 pastel blue), rest room (RAL 1001 beige), therapy room (RAL 6019 pastel green), bathrooms (RAL 7032) and IT & electrical rooms (RAL 9023), with RAL 9011 graphite aluminium doors. Each colour is tied to on-site photos of the actual rooms and corridors.",
+      },
+      year: 2026,
+      gallery: [AR("door-color-scheme-board.jpg")],
+    },
   ],
 };
