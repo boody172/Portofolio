@@ -452,5 +452,22 @@ window.PORTFOLIO = {
       year: 2026,
       gallery: [{ src: AR("organic-pavilion-street-view.jpg"), caption: { ar: "منظور من الشارع", en: "Street view" } }],
     },
+    {
+      id: "residential-building",
+      world: "architecture",
+      type: "image",
+      category: { ar: "تصميم معماري", en: "Architecture" },
+      title: { ar: "عمارة سكنية — تصميم واجهات", en: "Residential Building — Façade Design" },
+      description: {
+        ar: "تصميم واجهات لعمارة سكنية أربع أدوار على ناصية: كتلة مدخل مركزية بتكسية حجر فاتح ومدخل بإطار بارز، وجناح بشبابيك بكرانيش، وجناح ببلكونات غاطسة بدرابزين معدني، مع سور منخفض وتنسيق للرصيف. المشروع معروض بواجهة أمامية ومنظور جانبي ومنظور علوي.",
+        en: "Façade design for a four-storey corner residential building: a central entrance volume clad in light stone with a framed doorway, one wing with corniced windows and another with recessed balconies and metal railings, plus a low boundary wall and streetscape. Shown as a front elevation, a perspective and an aerial view.",
+      },
+      year: 2026,
+      gallery: [
+        { src: AR("residential-building-01-front-elevation.jpg"), caption: { ar: "الواجهة الأمامية", en: "Front elevation" } },
+        { src: AR("residential-building-02-perspective.jpg"), caption: { ar: "منظور جانبي", en: "Perspective" } },
+        { src: AR("residential-building-03-aerial-view.jpg"), caption: { ar: "منظور علوي", en: "Aerial view" } },
+      ],
+    },
   ],
 };
