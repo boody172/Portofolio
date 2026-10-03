@@ -512,5 +512,25 @@ window.PORTFOLIO = {
         { src: AR("villa-07-kids-room-wardrobe.jpg"), caption: { ar: "غرفة الأطفال — حائط الدولاب", en: "Kids' room — wardrobe wall" } },
       ],
     },
+    {
+      id: "apartment-interiors",
+      world: "architecture",
+      type: "image",
+      size: "wide",
+      category: { ar: "تصميم داخلي", en: "Interior Design" },
+      title: { ar: "تصميم داخلي — غرفة أطفال ومطابخ وحمام", en: "Interiors — Kids' Room, Kitchens & Bathroom" },
+      description: {
+        ar: "مجموعة فراغات داخلية: غرفة ولد بوحدة مكتب ومكتبة مدمجة بإضاءة مخفية ودولاب حائط، ومطبخ أبيض بحوائط رخام وشفاط جزيرة أسطواني، وحمام بمراية دائرية مضيئة ورخام أخضر داكن بعروق دهبي وشاور بنيش رفوف، ومطبخ مفتوح ببار إفطار بخشب فاتح وسطح رخام داكن.",
+        en: "A set of interior spaces: a boy's bedroom with a built-in desk and shelving with concealed lighting, a white kitchen with marble walls and a cylindrical island hood, a bathroom with a backlit round mirror and gold-veined dark green marble with a shower niche, and an open kitchen with a light-wood breakfast bar and dark marble top.",
+      },
+      year: 2026,
+      gallery: [
+        { src: AR("apartment-01-boys-bedroom.jpg"), caption: { ar: "غرفة الولد", en: "Boy's bedroom" } },
+        { src: AR("apartment-02-marble-kitchen.jpg"), caption: { ar: "المطبخ", en: "Kitchen" } },
+        { src: AR("apartment-03-bathroom-vanity.jpg"), caption: { ar: "الحمام — الحوض", en: "Bathroom — vanity" } },
+        { src: AR("apartment-04-bathroom-shower.jpg"), caption: { ar: "الحمام — الشاور", en: "Bathroom — shower" } },
+        { src: AR("apartment-05-kitchen-breakfast-bar.jpg"), caption: { ar: "المطبخ المفتوح وبار الإفطار", en: "Open kitchen & breakfast bar" } },
+      ],
+    },
   ],
 };
