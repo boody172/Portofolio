@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Portfolio — Marketing & Architecture</title>
+  <meta name="description" content="بورتفوليو أعمال التسويق والعمارة والتصميم — فيديوهات وصور تفاعلية." />
+  <meta name="theme-color" content="#0b0b0d" />
+  <meta property="og:title" content="Portfolio — Marketing & Architecture" />
+  <meta property="og:description" content="أعمال التسويق والعمارة والتصميم" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-world="home">
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <span class="loader__count" id="loaderCount">0</span>
+      <span class="loader__bar"><i id="loaderBar"></i></span>
+    </div>
+  </div>
+
+  <!-- Custom cursor (desktop only) -->
+  <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a href="#/" class="nav__logo" data-link>
+      <span class="nav__mark"></span>
+      <span class="nav__name" data-profile="name"></span>
+    </a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#/" data-link data-route="home" data-i18n="nav.home"></a>
+      <a href="#/marketing" data-link data-route="marketing" data-i18n="nav.marketing"></a>
+      <a href="#/architecture" data-link data-route="architecture" data-i18n="nav.architecture"></a>
+      <a href="#about" data-scroll="about" data-i18n="nav.about"></a>
+      <a href="#contact" data-scroll="contact" data-i18n="nav.contact"></a>
+    </nav>
+    <div class="nav__actions">
+      <button class="lang" id="langToggle" type="button" aria-label="Change language">EN</button>
+      <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ================= HOME ================= -->
+  <main id="viewHome" class="view">
+    <section class="split" id="split">
+      <div class="split__head">
+        <p class="eyebrow" data-profile="role"></p>
+        <h1 class="split__title" data-profile="tagline"></h1>
+        <p class="split__hint" data-i18n="home.choose"></p>
+      </div>
+      <a href="#/marketing" data-link class="panel panel--marketing" data-cursor="enter">
+        <div class="panel__media" data-world-cover="marketing"></div>
+        <div class="panel__shade"></div>
+        <div class="panel__content">
+          <span class="panel__index">01</span>
+          <h2 class="panel__title" data-world-title="marketing"></h2>
+          <p class="panel__intro" data-world-intro="marketing"></p>
+          <span class="panel__meta" data-world-meta="marketing"></span>
+          <span class="panel__cta"><span data-i18n="home.explore"></span> <i class="arrow"></i></span>
+        </div>
+      </a>
+      <a href="#/architecture" data-link class="panel panel--architecture" data-cursor="enter">
+        <div class="panel__media" data-world-cover="architecture"></div>
+        <div class="panel__shade"></div>
+        <div class="panel__content">
+          <span class="panel__index">02</span>
+          <h2 class="panel__title" data-world-title="architecture"></h2>
+          <p class="panel__intro" data-world-intro="architecture"></p>
+          <span class="panel__meta" data-world-meta="architecture"></span>
+          <span class="panel__cta"><span data-i18n="home.explore"></span> <i class="arrow"></i></span>
+        </div>
+      </a>
+    </section>
+
+    <div class="marquee" aria-hidden="true"><div class="marquee__track" id="marquee"></div></div>
+
+    <section class="section featured">
+      <div class="section__head reveal">
+        <p class="eyebrow" data-i18n="home.featuredEyebrow"></p>
+        <h2 class="section__title" data-i18n="home.featured"></h2>
+        <div class="featured__nav">
+          <button type="button" class="circle-btn" id="featPrev" aria-label="Previous"><i class="arrow arrow--back"></i></button>
+          <button type="button" class="circle-btn" id="featNext" aria-label="Next"><i class="arrow"></i></button>
+        </div>
+      </div>
+      <div class="carousel" id="featured"></div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="about__grid">
+        <div class="reveal">
+          <p class="eyebrow" data-i18n="about.eyebrow"></p>
+          <h2 class="section__title" data-i18n="about.title"></h2>
+        </div>
+        <div class="reveal">
+          <p class="about__text" data-profile="about"></p>
+          <div class="stats" id="stats"></div>
+        </div>
+      </div>
+      <div class="services" id="services"></div>
+    </section>
+  </main>
+
+  <!-- ================= WORLD (Marketing / Architecture) ================= -->
+  <main id="viewWorld" class="view" hidden>
+    <section class="world-hero">
+      <div class="world-hero__bg" id="worldBg"></div>
+      <div class="world-hero__content">
+        <a href="#/" data-link class="back"><i class="arrow arrow--back"></i> <span data-i18n="world.back"></span></a>
+        <p class="eyebrow" id="worldEyebrow"></p>
+        <h1 class="world-hero__title" id="worldTitle"></h1>
+        <p class="world-hero__intro" id="worldIntro"></p>
+        <div class="world-hero__row">
+          <button type="button" class="btn btn--accent" id="showreelBtn" data-cursor="play">
+            <span class="btn__play"></span><span data-i18n="world.showreel"></span>
+          </button>
+          <div class="world-hero__counts" id="worldCounts"></div>
+        </div>
+      </div>
+      <a href="#" class="world-switch" id="worldSwitch" data-link data-cursor="enter"></a>
+    </section>
+
+    <section class="section works">
+      <div class="toolbar" id="toolbar">
+        <div class="tabs" role="tablist" id="tabs">
+          <button role="tab" data-tab="all" data-i18n="tabs.all"></button>
+          <button role="tab" data-tab="video" data-i18n="tabs.video"></button>
+          <button role="tab" data-tab="image" data-i18n="tabs.image"></button>
+          <span class="tabs__ink" id="tabsInk"></span>
+        </div>
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="empty" hidden data-i18n="world.empty"></p>
+    </section>
+  </main>
+
+  <!-- ================= CONTACT / FOOTER ================= -->
+  <footer class="contact" id="contact">
+    <div class="contact__inner reveal">
+      <p class="eyebrow" data-i18n="contact.eyebrow"></p>
+      <h2 class="contact__title" data-i18n="contact.title"></h2>
+      <a class="contact__mail" id="contactMail" data-cursor="mail"></a>
+      <div class="socials" id="socials"></div>
+    </div>
+    <div class="footer">
+      <span>© <span id="year"></span> <span data-profile="name"></span></span>
+      <span data-profile="location"></span>
+      <button type="button" class="to-top" id="toTop"><span data-i18n="contact.top"></span> ↑</button>
+    </div>
+  </footer>
+
+  <!-- ================= MODAL / LIGHTBOX ================= -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog">
+      <button type="button" class="modal__close" data-close aria-label="Close">✕</button>
+      <div class="modal__stage" id="stage">
+        <div class="stage__media" id="stageMedia"></div>
+        <button type="button" class="stage__nav stage__nav--prev" id="stagePrev" aria-label="Previous"><i class="arrow arrow--back"></i></button>
+        <button type="button" class="stage__nav stage__nav--next" id="stageNext" aria-label="Next"><i class="arrow"></i></button>
+        <span class="stage__counter" id="stageCounter"></span>
+      </div>
+      <div class="thumbs" id="thumbs"></div>
+      <aside class="modal__info" id="modalInfo"></aside>
+    </div>
+  </div>
+
+  <noscript><p style="padding:2rem;color:#fff">يرجى تفعيل JavaScript لعرض الأعمال.</p></noscript>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
