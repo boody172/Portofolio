@@ -98,6 +98,13 @@
   }
   // gallery items can be "url" or { src, video, caption }
   const mediaSrc = (g) => (typeof g === "string" ? g : g.src || g.poster || "");
+  // a project counts under a tab if it holds that kind of media (a photo project can also carry a video)
+  const isVideoItem = (g) => typeof g === "object" && !!g.video;
+  function hasKind(p, kind) {
+    const g = p.gallery || [];
+    if (kind === "video") return p.type === "video" || g.some(isVideoItem);
+    return p.type === "image" ? g.length === 0 || g.some((x) => !isVideoItem(x)) : g.some((x) => !isVideoItem(x));
+  }
   function previewOf(p) {
     if (p.preview) return p.preview;
     const v = parseVideo(p.video);
@@ -119,8 +126,9 @@
     $$("[data-world-meta]").forEach((el) => {
       const w = el.dataset.worldMeta;
       const list = DATA.projects.filter((p) => p.world === w);
-      const v = list.filter((p) => p.type === "video").length;
-      el.textContent = `${v} ${t("count.video")} · ${list.length - v} ${t("count.image")}`;
+      const v = list.filter((p) => hasKind(p, "video")).length;
+      const im = list.filter((p) => hasKind(p, "image")).length;
+      el.textContent = `${v} ${t("count.video")} · ${im} ${t("count.image")}`;
     });
     document.title = `${L(DATA.profile.name)} — ${L(DATA.profile.role)}`;
   }
@@ -238,7 +246,7 @@
     return DATA.projects.filter((p) => p.world === state.world);
   }
   function filtered() {
-    return worldList().filter((p) => (state.tab === "all" || p.type === state.tab) && (state.cat === "all" || L(p.category) === state.cat));
+    return worldList().filter((p) => (state.tab === "all" || hasKind(p, state.tab)) && (state.cat === "all" || L(p.category) === state.cat));
   }
 
   function renderWorld(world) {
@@ -260,9 +268,10 @@
       : `<span class="accent">${esc(words[0])}</span>`;
     $("#worldIntro").textContent = L(W.intro);
     const all = worldList();
-    const nv = all.filter((p) => p.type === "video").length;
+    const nv = all.filter((p) => hasKind(p, "video")).length;
+    const ni = all.filter((p) => hasKind(p, "image")).length;
     $("#worldCounts").innerHTML = `<div class="count"><b data-count="${nv}">0</b><span>${t("count.video")}</span></div>
-      <div class="count"><b data-count="${all.length - nv}">0</b><span>${t("count.image")}</span></div>`;
+      <div class="count"><b data-count="${ni}">0</b><span>${t("count.image")}</span></div>`;
     $$("#worldCounts [data-count]").forEach(countUp);
     const sw = $("#worldSwitch");
     sw.href = `#/${other}`;
@@ -271,7 +280,7 @@
 
     // tabs counts
     $$("#tabs button").forEach((b) => {
-      const n = b.dataset.tab === "all" ? all.length : all.filter((p) => p.type === b.dataset.tab).length;
+      const n = b.dataset.tab === "all" ? all.length : all.filter((p) => hasKind(p, b.dataset.tab)).length;
       b.innerHTML = `${t("tabs." + b.dataset.tab)}<sup>${n}</sup>`;
       b.hidden = n === 0 && b.dataset.tab !== "all";
       b.classList.toggle("is-active", b.dataset.tab === state.tab);
@@ -283,7 +292,7 @@
   }
 
   function renderChips() {
-    const cats = [...new Set(worldList().filter((p) => state.tab === "all" || p.type === state.tab).map((p) => L(p.category)).filter(Boolean))];
+    const cats = [...new Set(worldList().filter((p) => state.tab === "all" || hasKind(p, state.tab)).map((p) => L(p.category)).filter(Boolean))];
     if (state.cat !== "all" && !cats.includes(state.cat)) state.cat = "all";
     $("#chips").innerHTML = [["all", t("chip.all")], ...cats.map((c) => [c, c])]
       .map(([v, label]) => `<button class="chip${state.cat === v ? " is-active" : ""}" data-cat="${esc(v)}">${esc(label)}</button>`)
@@ -350,6 +359,11 @@
   function openModal(index, list, opts = {}) {
     if (index < 0) return;
     M.list = list; M.index = index; M.slide = 0; M.opts = opts;
+    // opened from the Videos tab → start on the project's first video
+    if (state.world && state.tab !== "all") {
+      const i = slidesOf(list[index]).findIndex((x) => (state.tab === "video" ? !!x.video : !x.video));
+      if (i > 0) M.slide = i;
+    }
     M.lastFocus = document.activeElement;
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");

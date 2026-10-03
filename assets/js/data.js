@@ -353,8 +353,8 @@ window.PORTFOLIO = {
       category: { ar: "تصميم داخلي", en: "Interior Design" },
       title: { ar: "محطة قطار بطابع مصري قديم", en: "Pharaonic-Style Train Station" },
       description: {
-        ar: "تصميم معماري وداخلي لمحطة قطار مستوحاة من العمارة المصرية القديمة: مدخل بأعمدة لوتس ومسلة في المنتصف وتماثيل أنوبيس، وصالة انتظار بسقف زجاجي للإضاءة الطبيعية، وحوائط بنقوش هيروغليفية وجداريات ملوّنة. التصميم بيدمج الطابع التاريخي مع خدمات المحطة الحديثة: شبابيك التذاكر، والبوابات الإلكترونية، والـ ATM، والكوفي شوب، وكشك الصحافة.",
-        en: "Architecture and interior design for a train station inspired by ancient Egyptian architecture: a lotus-column entrance with a central obelisk and Anubis statues, a glass-roofed concourse for daylight, and walls carrying hieroglyphic reliefs and painted murals. The design blends the historic character with modern station services — ticket counters, e-gates, ATMs, a coffee shop and a press kiosk.",
+        ar: "تصميم معماري وداخلي لمحطة قطار مستوحاة من العمارة المصرية القديمة: مدخل بأعمدة لوتس ومسلة في المنتصف وتماثيل أنوبيس، وصالة انتظار بسقف زجاجي للإضاءة الطبيعية، وحوائط بنقوش هيروغليفية وجداريات ملوّنة. التصميم بيدمج الطابع التاريخي مع خدمات المحطة الحديثة: شبابيك التذاكر، والبوابات الإلكترونية، والـ ATM، والكوفي شوب، وكشك الصحافة. المشروع فيه كمان منظور علوي للمحطة وجولة فيديو داخلها.",
+        en: "Architecture and interior design for a train station inspired by ancient Egyptian architecture: a lotus-column entrance with a central obelisk and Anubis statues, a glass-roofed concourse for daylight, and walls carrying hieroglyphic reliefs and painted murals. The design blends the historic character with modern station services — ticket counters, e-gates, ATMs, a coffee shop and a press kiosk. Includes a top view and a video walkthrough.",
       },
       year: 2026,
       gallery: [
@@ -363,6 +363,9 @@ window.PORTFOLIO = {
         { src: AR("pharaonic-station-03-concourse-coffee-shop.jpg"), caption: { ar: "الصالة والكوفي شوب والبوابات", en: "Concourse, coffee shop & gates" } },
         { src: AR("pharaonic-station-04-ticket-hall-atm.jpg"), caption: { ar: "شبابيك التذاكر والـ ATM", en: "Ticket hall & ATM center" } },
         { src: AR("pharaonic-station-05-gates-colonnade.jpg"), caption: { ar: "الأعمدة والبوابات الإلكترونية", en: "Colonnade & e-gates" } },
+        { src: AR("pharaonic-station-06-coffee-shop.jpg"), caption: { ar: "الكوفي شوب", en: "Coffee shop" } },
+        { src: AR("pharaonic-station-07-top-view.jpg"), caption: { ar: "منظور علوي للمحطة", en: "Top view" } },
+        { video: AR("pharaonic-station-walkthrough.mp4"), poster: AR("pharaonic-station-walkthrough.jpg"), ratio: "1284/722", caption: { ar: "جولة فيديو داخل المحطة", en: "Video walkthrough" } },
       ],
     },
   ],
