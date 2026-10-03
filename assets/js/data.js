@@ -469,5 +469,24 @@ window.PORTFOLIO = {
         { src: AR("residential-building-03-aerial-view.jpg"), caption: { ar: "منظور علوي", en: "Aerial view" } },
       ],
     },
+    {
+      id: "master-bedroom-design",
+      world: "architecture",
+      type: "image",
+      featured: true,
+      category: { ar: "تصميم داخلي", en: "Interior Design" },
+      title: { ar: "تصميم داخلي — ماستر بيدروم", en: "Master Bedroom Interior" },
+      description: {
+        ar: "تصميم ماستر بيدروم فاخر: خلفية سرير بحجر طبيعي أبيض بين حوائط خشب داكن، وبانوهات خشب متموّجة في الأركان، ونجفة بحلقات معلّقة مضيئة، ودريسنج بأبواب زجاج فاميه وإضاءة داخلية، وركن تسريحة بحائط وردي هادئ ومراية دائرية، مع سقف معلّق بإضاءة مخفية وأرضية باركيه.",
+        en: "A luxurious master bedroom: a white natural-stone headboard wall between dark wood panels, curved timber slats in the corners, a suspended ring chandelier, a dressing area behind smoked-glass doors with internal lighting, and a vanity corner on a soft blush wall with a round mirror — under a dropped ceiling with concealed lighting, on parquet flooring.",
+      },
+      year: 2026,
+      gallery: [
+        { src: AR("master-bedroom-01-bed-wall.jpg"), caption: { ar: "حائط السرير", en: "Bed wall" } },
+        { src: AR("master-bedroom-02-bed-wardrobe.jpg"), caption: { ar: "السرير والدريسنج", en: "Bed & dressing area" } },
+        { src: AR("master-bedroom-03-vanity-wall.jpg"), caption: { ar: "ركن التسريحة", en: "Vanity wall" } },
+        { src: AR("master-bedroom-04-window-corner.jpg"), caption: { ar: "ركن الشباك", en: "Window corner" } },
+      ],
+    },
   ],
 };
