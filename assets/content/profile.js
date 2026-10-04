@@ -18,8 +18,8 @@ window.PROFILE = {
   },
 
   about: {
-    ar: "معماري حاصل على شهادة PMP ومسجّل في الهيئة السعودية للمهندسين. اشتغلت في تنفيذ والإشراف على مشاريع في المنطقة الشرقية والرياض: تصميم معماري، إشراف موقع، رسومات تنفيذية (\u2068Shop Drawings\u2069)، وأعمال تشطيبات وفيت-آوت.\n\nوبجانب العمارة بعمل محتوى تسويقي بصري. بصوّر وبنتج فيديوهات قصيرة للمنتجات اليدوية والمطاعم، وبعمل عروض 3D للمشاريع العمرانية والتجارية. الخلفية الهندسية هي اللي مخلّية شغل الـ 3D عندي دقيق.",
-    en: "PMP-certified architect, registered with the Saudi Council of Engineers. I've worked on the execution and supervision of projects in the Eastern Province and Riyadh: architectural design, site supervision, shop drawings, and fit-out and finishing works.\n\nAlongside architecture I make visual marketing content. I shoot and produce short videos for handmade products and restaurants, and build 3D presentations for urban and commercial projects. The engineering background is what keeps the 3D work accurate.",
+    ar: "معماري حاصل على شهادة PMP ومسجّل في الهيئة السعودية للمهندسين. اشتغلت في تنفيذ والإشراف على مشاريع في المنطقة الشرقية والرياض: تصميم معماري، إشراف موقع، رسومات تنفيذية (\u2068Shop Drawings\u2069)، وأعمال تشطيبات وفيت-آوت. حالياً شغال في المكتب الفني المعماري لمشروع جيدا بالأحساء، مسؤول عن تعميد المواد واعتماد مخططات الشوب دروينج.\n\nوبجانب العمارة بعمل محتوى تسويقي بصري. بصوّر وبنتج فيديوهات قصيرة للمنتجات اليدوية والمطاعم، وبعمل عروض 3D للمشاريع العمرانية والتجارية. الخلفية الهندسية هي اللي مخلّية شغل الـ 3D عندي دقيق.",
+    en: "PMP-certified architect, registered with the Saudi Council of Engineers. I've worked on the execution and supervision of projects in the Eastern Province and Riyadh: architectural design, site supervision, shop drawings, and fit-out and finishing works. I currently work in the architectural technical office of the Jida project in Al-Ahsa, handling material submittals and shop drawing approvals.\n\nAlongside architecture I make visual marketing content. I shoot and produce short videos for handmade products and restaurants, and build 3D presentations for urban and commercial projects. The engineering background is what keeps the 3D work accurate.",
   },
 
   location: { ar: "الدمام، السعودية", en: "Dammam, Saudi Arabia" },
@@ -56,14 +56,24 @@ window.PROFILE = {
     { ar: "بكالوريوس هندسة معمارية", en: "B.Sc. Architecture" },
   ],
 
+  // الأحدث فوق. عشان تضيف وظيفة جديدة: انسخ بلوك { ... } وحطه أول واحد
   experience: [
     {
-      period: { ar: "أبريل 2025 حتى الآن", en: "Apr 2025 to now" },
+      period: { ar: "حالياً", en: "Current" },
+      role: { ar: "معماري، مكتب فني", en: "Architect, technical office" },
+      company: { ar: "مشروع جيدا، الأحساء", en: "Jida project, Al-Ahsa" },
+      details: {
+        ar: "مسؤول عن تعميد المواد واعتماد مخططات الشوب دروينج المعمارية، عشان الشغل في الموقع يمشي من غير تعارض بين البنود.",
+        en: "Responsible for material submittals and approving architectural shop drawings, so site works keep moving without clashes between trades.",
+      },
+    },
+    {
+      period: { ar: "من أبريل 2025", en: "From Apr 2025" },
       role: { ar: "معماري ومشرف موقع", en: "Architect & site supervisor" },
       company: { ar: "شركة فنار العالمية العربية، المنطقة الشرقية", en: "Fanar International Arabian Co., Eastern Province" },
       details: {
-        ar: "منتزه فاطمة الراشد بالأحساء (منفّذ)، مدرسة الجبر لمتلازمة داون بالأحساء (منفّذ)، وتلال قمرة صفوة والمسجد بالدمام (جاري): رسومات تنفيذية لـ 6 نماذج فلل.",
-        en: "Fatmah Al-Rashed Park, Al-Ahsa (completed); Al-Jabr School for Down Syndrome, Al-Ahsa (completed); Tilal Qamra Safwa & Mosque, Dammam (ongoing): shop drawings for 6 villa types.",
+        ar: "منتزه فاطمة الراشد بالأحساء (منفّذ)، مدرسة الجبر لمتلازمة داون بالأحساء (منفّذ)، وتلال قمرة صفوة والمسجد بالدمام: رسومات تنفيذية لـ 6 نماذج فلل.",
+        en: "Fatmah Al-Rashed Park, Al-Ahsa (completed); Al-Jabr School for Down Syndrome, Al-Ahsa (completed); Tilal Qamra Safwa & Mosque, Dammam: shop drawings for 6 villa types.",
       },
     },
     {
@@ -71,13 +81,9 @@ window.PROFILE = {
       role: { ar: "معماري ومهندس تشطيبات", en: "Architect & finishing engineer" },
       company: { ar: "شركة سويلم للمقاولات، مصر", en: "Swilam Construction, Egypt" },
       details: {
-        ar: "فيت-آوت وتشطيبات لمشاريع سكنية وتجارية، وموديلات 3D لاعتماد التصميم مع العملاء.",
-        en: "Fit-out and finishing works for residential and commercial projects, plus 3D models for client approvals.",
+        ar: "أول شغل ليا: فيت-آوت وتشطيبات لمشاريع سكنية وتجارية، وموديلات 3D لاعتماد التصميم مع العملاء.",
+        en: "My first role: fit-out and finishing works for residential and commercial projects, plus 3D models for client approvals.",
       },
-    },
-    {
-      period: "2018 – 2023",
-      role: { ar: "بكالوريوس الهندسة المعمارية", en: "Bachelor of Architecture Engineering" },
     },
   ],
 
