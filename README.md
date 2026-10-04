@@ -157,8 +157,10 @@ python3 -m http.server 8000
 ---
 
 ## السيرة الذاتية (CV)
-فيه نسختين جاهزين للتقديم، صفحة واحدة A4 بالإنجليزي، في `assets/docs/`:
-- `Abdelrahman-Samy-CV-Architect.pdf` لوظائف العمارة والمكتب الفني والإشراف.
-- `Abdelrahman-Samy-CV-Visual-Content.pdf` لوظائف التسويق وصناعة المحتوى.
+السيرة الذاتية اللي على الموقع هي `assets/docs/Abdelrahman-Samy-CV.pdf`: صفحة واحدة A4 بالإنجليزي، فيها العمارة والتسويق مع بعض. زرار "حمّل السيرة الذاتية" في الموقع بينزّلها هي.
 
-المصدر بتاعهم في فولدر `cv/` (`architecture.html` و `marketing.html`). عشان تعدّل: غيّر النص في ملف الـ HTML، وبعدين شغّل `node cv/build.mjs` (محتاج Playwright) عشان يطلع PDF جديد. ولو النص زاد عن صفحة، السكريبت هيقولك.
+ولو احتجت تقدّم على وظيفة متخصصة، فيه كمان نسختين منفصلين (مش ظاهرين في الموقع):
+- `assets/docs/Abdelrahman-Samy-CV-Architect.pdf` للعمارة بس.
+- `assets/docs/Abdelrahman-Samy-CV-Visual-Content.pdf` للتسويق بس.
+
+المصدر في فولدر `cv/` (`combined.html` و `architecture.html` و `marketing.html`). عشان تعدّل: غيّر النص في ملف الـ HTML، وبعدين شغّل `node cv/build.mjs` (محتاج Playwright) عشان يطلع PDF جديد. ولو النص زاد عن صفحة، السكريبت هيقولك.

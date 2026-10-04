@@ -8,6 +8,7 @@ import path from "path";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const out = path.join(here, "..", "assets", "docs");
 const jobs = [
+  ["combined.html", "Abdelrahman-Samy-CV.pdf"],
   ["architecture.html", "Abdelrahman-Samy-CV-Architect.pdf"],
   ["marketing.html", "Abdelrahman-Samy-CV-Visual-Content.pdf"],
 ];
