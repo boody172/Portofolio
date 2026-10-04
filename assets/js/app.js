@@ -259,7 +259,7 @@
     Object.entries(P.social || {}).forEach(([k, v]) => v && links.push([k, NAMES[k] || k[0].toUpperCase() + k.slice(1), v]));
     links.push(["email", "Email", `mailto:${P.email}`]);
     $("#socials").innerHTML = links
-      .map(([k, label, href]) => `<a class="social" href="${esc(href)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor">${icons[k] || ""}</svg>${label}</a>`)
+      .map(([k, label, href]) => `<a class="social" href="${esc(href)}"${/^(mailto|tel):/.test(href) ? "" : ' target="_blank" rel="noopener"'}><svg viewBox="0 0 24 24" fill="currentColor">${icons[k] || ""}</svg>${label}</a>`)
       .join("");
     $("#year").textContent = new Date().getFullYear();
   }
@@ -425,7 +425,7 @@
 
   /* ---------------- Modal ---------------- */
   const modal = $("#modal");
-  const M = { list: [], index: 0, slide: 0, opts: {}, lastFocus: null };
+  const M = { list: [], index: 0, slide: 0, opts: {}, lastFocus: null, pushed: false };
 
   function slidesOf(p) {
     if (p.type === "video") {
@@ -444,21 +444,31 @@
       if (i > 0) M.slide = i;
     }
     M.lastFocus = document.activeElement;
+    // add a history entry so the phone's Back button closes the viewer instead of leaving the page
+    if (!opts.fromRoute && !M.pushed) { history.pushState({ modal: 1 }, "", location.href); M.pushed = true; }
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("no-scroll");
     renderModal();
     $(".modal__close", modal).focus({ preventScroll: true });
   }
-  function closeModal() {
+  function closeModal(fromHistory = false) {
     if (!modal.classList.contains("is-open")) return;
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("no-scroll");
     setTimeout(() => { if (!modal.classList.contains("is-open")) { $("#stageMedia").innerHTML = ""; $("#thumbs").innerHTML = ""; } }, 500);
-    if (state.world && location.hash.split("/").length > 2) history.replaceState(null, "", `#/${state.world}`);
+    if (M.pushed) { M.pushed = false; if (!fromHistory) history.back(); }
+    else if (!fromHistory && state.world && route().id) history.replaceState(null, "", `#/${state.world}`);
     M.lastFocus?.focus?.({ preventScroll: true });
   }
+  // Back pressed while the viewer is open. If the new address points at a project, the router opens it.
+  addEventListener("popstate", () => {
+    if (!modal.classList.contains("is-open")) return;
+    const r = route();
+    if (r.world && r.id) return;
+    closeModal(true);
+  });
 
   function renderModal() {
     const p = M.list[M.index];
@@ -627,8 +637,8 @@
     if (world && id) {
       const list = filtered().some((p) => p.id === id) ? filtered() : worldList();
       const idx = list.findIndex((p) => p.id === id);
-      if (idx >= 0) openModal(idx, list);
-    } else closeModal();
+      if (idx >= 0) openModal(idx, list, { fromRoute: true });
+    } else closeModal(true);
   }
   addEventListener("hashchange", router);
 
