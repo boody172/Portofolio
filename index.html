@@ -50,7 +50,10 @@
   <main id="viewHome" class="view">
     <section class="split" id="split">
       <div class="split__head">
-        <p class="eyebrow" data-profile="role"></p>
+        <a href="#about" data-scroll="about" class="hero-id" data-cursor="enter">
+          <img class="hero-id__photo" data-profile-photo alt="" width="56" height="56" />
+          <span class="hero-id__text"><strong data-profile="name"></strong><span data-profile="role"></span></span>
+        </a>
         <h1 class="split__title" data-profile="tagline"></h1>
         <p class="split__hint" data-i18n="home.choose"></p>
       </div>
@@ -94,13 +97,28 @@
 
     <section class="section about" id="about">
       <div class="about__grid">
+        <div class="about__side reveal">
+          <figure class="portrait">
+            <img data-profile-photo alt="" loading="lazy" />
+            <figcaption><strong data-profile="name"></strong><span data-profile="location"></span></figcaption>
+          </figure>
+        </div>
         <div class="reveal">
           <p class="eyebrow" data-i18n="about.eyebrow"></p>
           <h2 class="section__title" data-i18n="about.title"></h2>
+          <p class="about__text" data-profile="about"></p>
+          <div class="creds" id="creds"></div>
+          <div class="stats" id="stats"></div>
+        </div>
+      </div>
+      <div class="about__more">
+        <div class="reveal">
+          <h3 class="about__h" data-i18n="about.experience"></h3>
+          <ol class="timeline" id="timeline"></ol>
         </div>
         <div class="reveal">
-          <p class="about__text" data-profile="about"></p>
-          <div class="stats" id="stats"></div>
+          <h3 class="about__h" data-i18n="about.tools"></h3>
+          <ul class="tools" id="tools"></ul>
         </div>
       </div>
       <div class="services" id="services"></div>

@@ -18,7 +18,7 @@
       "home.choose": "اختار العالم اللي عايز تستكشفه",
       "home.explore": "استكشف الأعمال",
       "home.featuredEyebrow": "مختارات", "home.featured": "أعمال مختارة",
-      "about.eyebrow": "عني", "about.title": "بين المساحة والرسالة",
+      "about.eyebrow": "عني", "about.title": "بين المساحة والرسالة", "about.experience": "الخبرة", "about.tools": "الأدوات والبرامج",
       "world.back": "الرئيسية", "world.showreel": "شاهد الشوريل",
       "world.empty": "مفيش أعمال في التصنيف ده لسه.",
       "world.switchTo": "انتقل إلى",
@@ -40,7 +40,7 @@
       "home.choose": "Choose a world to explore",
       "home.explore": "Explore work",
       "home.featuredEyebrow": "Selected", "home.featured": "Featured Work",
-      "about.eyebrow": "About", "about.title": "Between space and message",
+      "about.eyebrow": "About", "about.title": "Between space and message", "about.experience": "Experience", "about.tools": "Tools & software",
       "world.back": "Home", "world.showreel": "Watch showreel",
       "world.empty": "No work in this category yet.",
       "world.switchTo": "Switch to",
@@ -121,6 +121,9 @@
     $("#langToggle").textContent = lang === "ar" ? "EN" : "ع";
     $$("[data-i18n]").forEach((el) => (el.textContent = t(el.dataset.i18n)));
     $$("[data-profile]").forEach((el) => (el.textContent = L(DATA.profile[el.dataset.profile])));
+    $$("[data-profile-photo]").forEach((el) => {
+      if (DATA.profile.photo) { el.src = DATA.profile.photo; el.alt = L(DATA.profile.name); } else el.hidden = true;
+    });
     $$("[data-world-title]").forEach((el) => (el.textContent = L(DATA.worlds[el.dataset.worldTitle].title)));
     $$("[data-world-intro]").forEach((el) => (el.textContent = L(DATA.worlds[el.dataset.worldIntro].intro)));
     $$("[data-world-meta]").forEach((el) => {
@@ -154,8 +157,20 @@
 
     // stats
     $("#stats").innerHTML = (DATA.profile.stats || [])
+      .map((s) => ({ ...s, value: s.value === "projects" ? DATA.projects.length : s.value }))
       .map((s) => `<div class="stat"><div class="stat__value" data-count="${s.value}" data-suffix="${esc(s.suffix || "")}">0</div><div class="stat__label">${esc(L(s.label))}</div></div>`)
       .join("");
+
+    // credentials, experience, tools
+    const P0 = DATA.profile;
+    $("#creds").innerHTML = (P0.credentials || []).map((c) => `<span class="cred">${esc(L(c))}</span>`).join("");
+    $("#timeline").innerHTML = (P0.experience || [])
+      .map((x) => `<li><span class="timeline__period">${esc(L(x.period))}</span>
+        <strong>${esc(L(x.role))}</strong>${L(x.company) ? `<span class="timeline__co">${esc(L(x.company))}</span>` : ""}
+        ${L(x.details) ? `<p>${esc(L(x.details))}</p>` : ""}</li>`)
+      .join("");
+    $("#tools").innerHTML = (P0.tools || []).map((x) => `<li>${esc(x)}</li>`).join("");
+    $(".about__more").hidden = !(P0.experience || []).length && !(P0.tools || []).length;
 
     // services
     $("#services").innerHTML = ["marketing", "architecture"]
@@ -180,7 +195,8 @@
     };
     const links = [];
     if (P.whatsapp) links.push(["whatsapp", "WhatsApp", `https://wa.me/${P.whatsapp}`]);
-    Object.entries(P.social || {}).forEach(([k, v]) => v && links.push([k, k[0].toUpperCase() + k.slice(1), v]));
+    const NAMES = { linkedin: "LinkedIn", youtube: "YouTube", tiktok: "TikTok" };
+    Object.entries(P.social || {}).forEach(([k, v]) => v && links.push([k, NAMES[k] || k[0].toUpperCase() + k.slice(1), v]));
     links.push(["email", "Email", `mailto:${P.email}`]);
     $("#socials").innerHTML = links
       .map(([k, label, href]) => `<a class="social" href="${esc(href)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor">${icons[k] || ""}</svg>${label}</a>`)
