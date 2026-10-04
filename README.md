@@ -153,3 +153,12 @@ python3 -m http.server 8000
 
 ## النشر
 الموقع منشور على Vercel ومربوط بالريبو ده. أي push على الفرع الأساسي بينشر تلقائياً.
+
+---
+
+## السيرة الذاتية (CV)
+فيه نسختين جاهزين للتقديم، صفحة واحدة A4 بالإنجليزي، في `assets/docs/`:
+- `Abdelrahman-Samy-CV-Architect.pdf` لوظائف العمارة والمكتب الفني والإشراف.
+- `Abdelrahman-Samy-CV-Visual-Content.pdf` لوظائف التسويق وصناعة المحتوى.
+
+المصدر بتاعهم في فولدر `cv/` (`architecture.html` و `marketing.html`). عشان تعدّل: غيّر النص في ملف الـ HTML، وبعدين شغّل `node cv/build.mjs` (محتاج Playwright) عشان يطلع PDF جديد. ولو النص زاد عن صفحة، السكريبت هيقولك.

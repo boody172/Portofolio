@@ -1,0 +1,60 @@
+/* CV, A4, one page. Fonts are the same self-hosted ones the site uses. */
+@font-face { font-family: "Fraunces"; font-weight: 100 900; src: url(../assets/fonts/fraunces-latin-opsz-normal.woff2) format("woff2-variations"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 400; src: url(../assets/fonts/source-sans-3-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 600; src: url(../assets/fonts/source-sans-3-latin-600-normal.woff2) format("woff2"); }
+
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  --ink: #1d1b19; --soft: #5c5650; --line: #e3ddd4; --paper: #ffffff; --tint: #f6f2ec;
+  font-family: "Source Sans 3", Arial, sans-serif; font-size: 9.6pt; line-height: 1.42; color: var(--ink); background: var(--paper);
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+body.arch { --accent: #9a7440; }
+body.mkt { --accent: #b9532c; }
+.page { width: 210mm; height: 297mm; padding: 13mm 14mm 11mm; display: flex; flex-direction: column; overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+
+/* header */
+header { display: grid; grid-template-columns: 27mm 1fr auto; gap: 6mm; align-items: center; padding-bottom: 5mm; border-bottom: 1.4pt solid var(--ink); }
+.photo { width: 27mm; height: 27mm; border-radius: 50%; object-fit: cover; object-position: 50% 18%; background: #eee; }
+h1 { font-family: "Fraunces", Georgia, serif; font-weight: 520; font-size: 25pt; line-height: 1; margin: 0 0 1.6mm; letter-spacing: -0.01em; }
+.title { font-size: 11pt; font-weight: 600; color: var(--accent); margin: 0 0 2.2mm; }
+.contact { display: flex; flex-wrap: wrap; gap: 0.6mm 4mm; font-size: 8.7pt; color: var(--soft); }
+.contact a, .contact span { white-space: nowrap; }
+.contact a { color: var(--ink); }
+.qr { text-align: center; font-size: 7pt; color: var(--soft); line-height: 1.25; }
+.qr img { width: 19mm; height: 19mm; display: block; margin: 0 auto 1.2mm; }
+
+/* body */
+.cols { display: grid; grid-template-columns: 1fr 58mm; gap: 7mm; padding-top: 5mm; flex: 1; min-height: 0; }
+h2 { font-family: "Fraunces", Georgia, serif; font-weight: 560; font-size: 11.5pt; margin: 0 0 2.2mm; padding-bottom: 1.2mm; border-bottom: 0.6pt solid var(--line); display: flex; align-items: baseline; gap: 2mm; }
+h2::before { content: ""; width: 2.2mm; height: 2.2mm; background: var(--accent); border-radius: 50%; flex: none; transform: translateY(-0.4mm); }
+section { margin-bottom: 4.6mm; }
+.summary { margin: 0; color: #2f2c29; }
+
+.job { margin-bottom: 3.4mm; break-inside: avoid; }
+.job__top { display: flex; justify-content: space-between; gap: 3mm; align-items: baseline; }
+.job__role { font-weight: 600; font-size: 10.2pt; }
+.job__when { font-size: 8.6pt; color: var(--soft); white-space: nowrap; }
+.job__co { color: var(--soft); font-size: 9pt; margin: 0.2mm 0 1mm; }
+ul { margin: 0; padding-left: 4mm; }
+li { margin: 0 0 0.7mm; }
+li::marker { color: var(--accent); }
+.tag { display: inline-block; font-size: 7.6pt; font-weight: 600; color: var(--accent); border: 0.6pt solid currentColor; border-radius: 2mm; padding: 0 1.4mm; margin-left: 1.5mm; vertical-align: 0.3mm; }
+
+.proj { margin-bottom: 1.6mm; }
+.proj b { font-weight: 600; }
+
+aside section { margin-bottom: 4.4mm; }
+aside { border-left: 0.6pt solid var(--line); padding-left: 5mm; }
+.chips { display: flex; flex-wrap: wrap; gap: 1.2mm; }
+.chips span { background: var(--tint); border-radius: 1.4mm; padding: 0.5mm 1.8mm; font-size: 8.5pt; }
+.list { list-style: none; padding: 0; }
+.list li { margin-bottom: 1.2mm; }
+.list li span { display: block; color: var(--soft); font-size: 8.5pt; }
+.brands { font-size: 9pt; color: #2f2c29; }
+
+footer { border-top: 0.6pt solid var(--line); padding-top: 2.4mm; font-size: 8pt; color: var(--soft); display: flex; justify-content: space-between; }
+footer a { color: var(--accent); font-weight: 600; }
