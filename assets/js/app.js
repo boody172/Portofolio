@@ -1,10 +1,56 @@
 /* =========================================================
-   Portfolio app — routing, rendering, interactions
+   Portfolio app: routing, rendering, interactions.
+   Content lives in assets/content/*.js, not here
    ========================================================= */
 (() => {
   "use strict";
 
-  const DATA = window.PORTFOLIO;
+  /* ---------------- Content → data ----------------
+     Reads assets/content/*.js and turns each project into the shape
+     the renderer uses. File names are resolved against the section's
+     media folder, so content files only need "photo.jpg".            */
+  const VIDEO_RE = /\.(mp4|webm|mov|m4v)(\?.*)?$/i;
+  const isVideoRef = (f) => VIDEO_RE.test(f) || /youtu\.?be|vimeo\.com|drive\.google\.com/i.test(f);
+  function buildData() {
+    const sources = { marketing: window.MARKETING, architecture: window.ARCHITECTURE };
+    const worlds = {}, projects = [], seen = new Set();
+    for (const [key, W] of Object.entries(sources)) {
+      if (!W) continue;
+      const dir = `assets/media/${key}/`;
+      const R = (f) => (!f ? "" : /^(https?:|\/|assets\/|data:)/.test(f) ? f : dir + f);
+      const cats = W.categories || {};
+      worlds[key] = { ...W, cover: R(W.cover), coverVideo: R(W.coverVideo), showreel: R(W.showreel), catOrder: Object.keys(cats) };
+      (W.projects || []).forEach((p, i) => {
+        if (!p || p.hidden) return;
+        let id = String(p.id || `${key}-${i + 1}`).trim().replace(/\s+/g, "-");
+        if (seen.has(id)) { console.warn(`[portfolio] duplicate id "${id}" in ${key}; renamed`); id = `${id}-${i + 1}`; }
+        seen.add(id);
+        const items = (p.media || [])
+          .map((m) => (typeof m === "string" ? { file: m } : m))
+          .filter((m) => m && (m.file || m.src || m.video))
+          .map((m) => {
+            const f = m.file || m.src || m.video;
+            if (m.video || isVideoRef(f)) {
+              const local = !/^https?:/.test(f) && VIDEO_RE.test(f);
+              return { video: R(f), poster: R(m.poster) || (local ? R(f).replace(VIDEO_RE, ".jpg") : ""), ratio: m.ratio, caption: m.caption };
+            }
+            return { src: R(f), caption: m.caption };
+          });
+        if (!items.length) { console.warn(`[portfolio] "${id}" has no media; skipped`); return; }
+        if (p.category && !cats[p.category]) console.info(`[portfolio] "${id}": category "${p.category}" isn't in ${key}.categories; shown as typed`);
+        const first = items[0];
+        projects.push({
+          ...p, id, world: key, catKey: p.category || "", category: cats[p.category] || p.category || "",
+          type: first.video ? "video" : "image",
+          video: first.video, poster: first.poster, ratio: p.ratio || first.ratio, firstCaption: first.caption,
+          cover: R(p.cover) || (first.video ? first.poster : first.src),
+          gallery: first.video ? items.slice(1) : items,
+        });
+      });
+    }
+    return { profile: window.PROFILE || {}, worlds, projects };
+  }
+  const DATA = buildData();
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -15,10 +61,10 @@
     ar: {
       "nav.home": "الرئيسية", "nav.marketing": "التسويق", "nav.architecture": "العمارة",
       "nav.about": "عني", "nav.contact": "تواصل",
-      "home.choose": "اختار العالم اللي عايز تستكشفه",
+      "home.choose": "اختار القسم اللي عايز تشوفه",
       "home.explore": "استكشف الأعمال",
       "home.featuredEyebrow": "مختارات", "home.featured": "أعمال مختارة",
-      "about.eyebrow": "عني", "about.title": "بين المساحة والرسالة", "about.experience": "الخبرة", "about.tools": "الأدوات والبرامج",
+      "about.eyebrow": "مين أنا", "about.title": "نبذة عني", "about.experience": "الخبرة", "about.tools": "الأدوات والبرامج",
       "world.back": "الرئيسية", "world.showreel": "شاهد الشوريل",
       "world.empty": "مفيش أعمال في التصنيف ده لسه.",
       "world.switchTo": "انتقل إلى",
@@ -28,39 +74,38 @@
       "card.video": "فيديو", "card.image": "صور",
       "info.client": "العميل", "info.year": "السنة", "info.type": "النوع", "info.tools": "الأدوات",
       "info.prev": "السابق", "info.next": "التالي", "info.link": "شاهد على المنصة",
-      "contact.eyebrow": "تواصل", "contact.title": "عندك مشروع؟ يلا نبدأ.",
+      "contact.eyebrow": "تواصل", "contact.title": "عندك مشروع أو فرصة شغل؟ كلّمني.",
+      "cta.cv": "حمّل السيرة الذاتية", "cta.whatsapp": "كلّمني واتساب", "cta.work": "شوف الأعمال",
       "contact.top": "لأعلى",
       "cursor.play": "تشغيل", "cursor.view": "عرض", "cursor.enter": "ادخل", "cursor.drag": "اسحب", "cursor.mail": "راسلني",
-      "services.marketing": ["استراتيجية تسويق", "إدارة سوشيال ميديا", "إعلانات ممولة", "صناعة محتوى", "مونتاج وموشن", "هوية بصرية"],
-      "services.architecture": ["تصميم معماري", "تصميم داخلي", "رندر 3D", "جولات افتراضية", "رسومات تنفيذية", "متابعة تنفيذ"],
     },
     en: {
       "nav.home": "Home", "nav.marketing": "Marketing", "nav.architecture": "Architecture",
       "nav.about": "About", "nav.contact": "Contact",
-      "home.choose": "Choose a world to explore",
+      "home.choose": "Pick a section to explore",
       "home.explore": "Explore work",
       "home.featuredEyebrow": "Selected", "home.featured": "Featured Work",
-      "about.eyebrow": "About", "about.title": "Between space and message", "about.experience": "Experience", "about.tools": "Tools & software",
+      "about.eyebrow": "Who I am", "about.title": "About me", "about.experience": "Experience", "about.tools": "Tools & software",
       "world.back": "Home", "world.showreel": "Watch showreel",
       "world.empty": "No work in this category yet.",
       "world.switchTo": "Switch to",
       "tabs.all": "All", "tabs.video": "Videos", "tabs.image": "Photos",
       "chip.all": "All categories",
-      "count.video": "Videos", "count.image": "Photo projects",
+      "count.video": "Videos", "count.image": "Photo projects", "count.video1": "Video", "count.image1": "Photo project",
       "card.video": "Video", "card.image": "Photos",
       "info.client": "Client", "info.year": "Year", "info.type": "Type", "info.tools": "Tools",
       "info.prev": "Previous", "info.next": "Next", "info.link": "View on platform",
-      "contact.eyebrow": "Contact", "contact.title": "Have a project? Let's talk.",
+      "contact.eyebrow": "Contact", "contact.title": "Got a project or a role? Get in touch.",
+      "cta.cv": "Download CV", "cta.whatsapp": "WhatsApp me", "cta.work": "See the work",
       "contact.top": "Top",
       "cursor.play": "Play", "cursor.view": "View", "cursor.enter": "Enter", "cursor.drag": "Drag", "cursor.mail": "Email",
-      "services.marketing": ["Marketing strategy", "Social media", "Paid ads", "Content creation", "Editing & motion", "Brand identity"],
-      "services.architecture": ["Architectural design", "Interior design", "3D rendering", "Walkthroughs", "Construction drawings", "Site supervision"],
     },
   };
   let lang = "ar";
   try { lang = localStorage.getItem("lang") || "ar"; } catch (_) {}
   if (!DICT[lang]) lang = "ar";
   const t = (k) => DICT[lang][k] ?? k;
+  const tn = (n, k) => (n === 1 && DICT[lang][k + "1"]) || t(k);
   const L = (v) => (v && typeof v === "object" && !Array.isArray(v) ? v[lang] ?? v.ar ?? v.en ?? "" : v ?? "");
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
@@ -90,6 +135,7 @@
   }
   function coverOf(p) {
     if (p.cover) return p.cover;
+    if (p.poster) return p.poster;
     if (p.gallery && p.gallery.length) return mediaSrc(p.gallery[0]);
     const v = parseVideo(p.video);
     if (v && v.provider === "youtube") return `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`;
@@ -110,8 +156,14 @@
     const v = parseVideo(p.video);
     return v && v.provider === "file" ? v.src : "";
   }
+  // if a cover image is missing: show the video's first frame when there is one, else the title
+  window.__coverFail = (img) => {
+    const v = img.parentNode && img.parentNode.querySelector("video[data-src]");
+    if (v) { v.preload = "metadata"; v.src = v.dataset.src + "#t=0.5"; v.classList.add("is-cover"); img.remove(); return; }
+    img.replaceWith(Object.assign(document.createElement("div"), { className: "card__fallback", textContent: img.alt }));
+  };
   function imgTag(src, alt, cls = "") {
-    return `<img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" class="${cls}" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'card__fallback',textContent:this.alt}))">`;
+    return `<img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" class="${cls}" onerror="__coverFail(this)">`;
   }
 
   /* ---------------- Static text ---------------- */
@@ -131,9 +183,9 @@
       const list = DATA.projects.filter((p) => p.world === w);
       const v = list.filter((p) => hasKind(p, "video")).length;
       const im = list.filter((p) => hasKind(p, "image")).length;
-      el.textContent = `${v} ${t("count.video")} · ${im} ${t("count.image")}`;
+      el.textContent = `${v} ${tn(v, "count.video")} · ${im} ${tn(im, "count.image")}`;
     });
-    document.title = `${L(DATA.profile.name)} — ${L(DATA.profile.role)}`;
+    document.title = `${L(DATA.profile.name)} | ${L(DATA.profile.role)}`;
   }
 
   function buildStatic() {
@@ -150,15 +202,20 @@
       }
     });
 
-    // marquee
-    const words = [...DICT[lang]["services.marketing"].slice(0, 4), ...DICT[lang]["services.architecture"].slice(0, 4)];
-    const seq = words.map((w) => `<span>${esc(w)}</span>`).join("");
-    $("#marquee").innerHTML = seq + seq;
+    // hero buttons + availability strip
+    const PR = DATA.profile;
+    const cv = (PR.downloads || [])[0];
+    const dl = (d) => `<a class="btn btn--ghost" href="${esc(d.file)}" download target="_blank" rel="noopener"><span class="btn__ico" aria-hidden="true">↓</span>${esc(L(d.label))}</a>`;
+    $("#heroCtas").innerHTML =
+      (cv ? `<a class="btn btn--light" href="${esc(cv.file)}" download target="_blank" rel="noopener"><span class="btn__ico" aria-hidden="true">↓</span>${t("cta.cv")}</a>` : "") +
+      (PR.whatsapp ? `<a class="btn btn--ghost" href="https://wa.me/${esc(PR.whatsapp)}" target="_blank" rel="noopener">${t("cta.whatsapp")}</a>` : "");
+    $("#hire").innerHTML = `<span class="hire__dot" aria-hidden="true"></span><span>${esc(L(PR.availability))}</span><span class="hire__sep">·</span><span>${esc(L(PR.location))}</span>`;
+    $("#downloads").innerHTML = (PR.downloads || []).map(dl).join("");
 
     // stats
     $("#stats").innerHTML = (DATA.profile.stats || [])
       .map((s) => ({ ...s, value: s.value === "projects" ? DATA.projects.length : s.value }))
-      .map((s) => `<div class="stat"><div class="stat__value" data-count="${s.value}" data-suffix="${esc(s.suffix || "")}">0</div><div class="stat__label">${esc(L(s.label))}</div></div>`)
+      .map((s) => `<div class="stat"><div class="stat__value" data-count="${s.value}" data-suffix="${esc(s.suffix || "")}">${s.value}${esc(s.suffix || "")}</div><div class="stat__label">${esc(L(s.label))}</div></div>`)
       .join("");
 
     // credentials, experience, tools
@@ -176,13 +233,16 @@
     $("#services").innerHTML = ["marketing", "architecture"]
       .map((w) => `<a href="#/${w}" data-link class="service reveal" data-cursor="enter">
         <div class="service__head"><span class="service__dot" style="background:var(--${w})"></span><h3>${esc(L(DATA.worlds[w].title))}</h3></div>
-        <ul>${DICT[lang]["services." + w].map((s) => `<li>${esc(s)}</li>`).join("")}</ul></a>`)
+        <ul>${(L(DATA.profile.services?.[w]) || []).map((s) => `<li>${esc(s)}</li>`).join("")}</ul></a>`)
       .join("");
 
     // contact
     const P = DATA.profile;
     const mail = $("#contactMail");
     mail.textContent = P.email;
+    $("#contactPhone").textContent = P.phone || "";
+    $("#contactPhone").href = P.phone ? `tel:${P.phone.replace(/\s+/g, "")}` : "#";
+    $("#contactPhone").hidden = !P.phone;
     mail.href = `mailto:${P.email}`;
     const icons = {
       whatsapp: '<path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.7-.1 1.3Z"/>',
@@ -217,7 +277,7 @@
         aria-label="${esc(L(p.title))}">
       <div class="card__media">
         ${cover ? imgTag(cover, L(p.title)) : `<div class="card__fallback">${esc(L(p.title))}</div>`}
-        ${preview && !reduceMotion ? `<video muted loop playsinline preload="none" data-src="${esc(preview)}"></video>` : ""}
+        ${preview ? `<video muted loop playsinline preload="none" data-src="${esc(preview)}"></video>` : ""}
       </div>
       <span class="card__badge"><span class="dot"></span>${t(isVid ? "card.video" : "card.image")}${count}</span>
       ${isVid ? '<span class="card__play"></span>' : ""}
@@ -235,9 +295,9 @@
       card.addEventListener("click", open);
       card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
       const vid = $("video", card);
-      if (vid && finePointer) {
+      if (vid && finePointer && !reduceMotion) {
         card.addEventListener("mouseenter", () => {
-          if (!vid.src) vid.src = vid.dataset.src;
+          if (!vid.getAttribute("src")) vid.src = vid.dataset.src;
           vid.play().then(() => card.classList.add("is-previewing")).catch(() => {});
         });
         card.addEventListener("mouseleave", () => { card.classList.remove("is-previewing"); vid.pause(); });
@@ -262,7 +322,7 @@
     return DATA.projects.filter((p) => p.world === state.world);
   }
   function filtered() {
-    return worldList().filter((p) => (state.tab === "all" || hasKind(p, state.tab)) && (state.cat === "all" || L(p.category) === state.cat));
+    return worldList().filter((p) => (state.tab === "all" || hasKind(p, state.tab)) && (state.cat === "all" || p.catKey === state.cat));
   }
 
   function renderWorld(world) {
@@ -277,7 +337,7 @@
       bg.innerHTML = (W.cover ? imgTag(W.cover, "") : "") +
         (W.coverVideo && !reduceMotion ? `<video muted loop playsinline autoplay preload="metadata" src="${esc(W.coverVideo)}"></video>` : "");
     }
-    $("#worldEyebrow").textContent = `${world === "marketing" ? "01" : "02"} — ${L(W.short)}`;
+    $("#worldEyebrow").textContent = `${world === "marketing" ? "01" : "02"} · ${L(W.short)}`;
     const words = L(W.title).split(" ");
     $("#worldTitle").innerHTML = words.length > 1
       ? `${esc(words.slice(0, -1).join(" "))} <span class="accent">${esc(words.at(-1))}</span>`
@@ -286,8 +346,8 @@
     const all = worldList();
     const nv = all.filter((p) => hasKind(p, "video")).length;
     const ni = all.filter((p) => hasKind(p, "image")).length;
-    $("#worldCounts").innerHTML = `<div class="count"><b data-count="${nv}">0</b><span>${t("count.video")}</span></div>
-      <div class="count"><b data-count="${ni}">0</b><span>${t("count.image")}</span></div>`;
+    $("#worldCounts").innerHTML = `<div class="count"><b data-count="${nv}">0</b><span>${tn(nv, "count.video")}</span></div>
+      <div class="count"><b data-count="${ni}">0</b><span>${tn(ni, "count.image")}</span></div>`;
     $$("#worldCounts [data-count]").forEach(countUp);
     const sw = $("#worldSwitch");
     sw.href = `#/${other}`;
@@ -308,9 +368,12 @@
   }
 
   function renderChips() {
-    const cats = [...new Set(worldList().filter((p) => state.tab === "all" || hasKind(p, state.tab)).map((p) => L(p.category)).filter(Boolean))];
-    if (state.cat !== "all" && !cats.includes(state.cat)) state.cat = "all";
-    $("#chips").innerHTML = [["all", t("chip.all")], ...cats.map((c) => [c, c])]
+    const W = DATA.worlds[state.world];
+    const present = new Set(worldList().filter((p) => state.tab === "all" || hasKind(p, state.tab)).map((p) => p.catKey).filter(Boolean));
+    const keys = [...W.catOrder.filter((k) => present.has(k)), ...[...present].filter((k) => !W.catOrder.includes(k))];
+    if (state.cat !== "all" && !keys.includes(state.cat)) state.cat = "all";
+    $("#chips").hidden = keys.length < 2;
+    $("#chips").innerHTML = [["all", t("chip.all")], ...keys.map((k) => [k, L((W.categories || {})[k] || k)])]
       .map(([v, label]) => `<button class="chip${state.cat === v ? " is-active" : ""}" data-cat="${esc(v)}">${esc(label)}</button>`)
       .join("");
   }
@@ -356,7 +419,7 @@
   $("#showreelBtn").addEventListener("click", () => {
     const W = DATA.worlds[state.world];
     const src = DATA.projects.find((p) => p.video === W.showreel);
-    openModal(0, [{ id: "showreel", world: state.world, type: "video", title: { ar: "الشوريل", en: "Showreel" }, category: W.short, video: W.showreel, ratio: W.showreelRatio || src?.ratio || "16/9", cover: src?.cover || W.cover }], { noHash: true });
+    openModal(0, [{ id: "showreel", world: state.world, type: "video", title: src ? src.title : { ar: "الشوريل", en: "Showreel" }, category: W.short, video: W.showreel, ratio: src?.ratio, poster: src?.poster, cover: src?.cover || W.cover, description: src?.description, client: src?.client }], { noHash: true });
   });
   addEventListener("resize", moveInk);
 
@@ -367,7 +430,7 @@
   function slidesOf(p) {
     if (p.type === "video") {
       const extra = (p.gallery || []).map((g) => (typeof g === "string" ? { src: g } : g));
-      return [{ video: p.video, poster: coverOf(p), ratio: p.ratio }, ...extra];
+      return [{ video: p.video, poster: p.poster || coverOf(p), ratio: p.ratio, caption: p.firstCaption }, ...extra];
     }
     return (p.gallery && p.gallery.length ? p.gallery : [coverOf(p)]).map((g) => (typeof g === "string" ? { src: g } : g));
   }
@@ -423,8 +486,8 @@
       ${p.tools?.length ? `<div class="info__tools">${p.tools.map((x) => `<span>${esc(x)}</span>`).join("")}</div>` : ""}
       ${p.link ? `<p><a class="btn" style="margin-top:1.4rem" href="${esc(p.link)}" target="_blank" rel="noopener">${t("info.link")} ↗</a></p>` : ""}
       ${M.list.length > 1 ? `<div class="info__pager">
-        <button type="button" data-go="-1" ${prev ? "" : "disabled"}><small>${t("info.prev")}</small><span>${esc(prev ? L(prev.title) : "—")}</span></button>
-        <button type="button" data-go="1" ${next ? "" : "disabled"}><small>${t("info.next")}</small><span>${esc(next ? L(next.title) : "—")}</span></button>
+        <button type="button" data-go="-1" ${prev ? "" : "disabled"}><small>${t("info.prev")}</small><span>${esc(prev ? L(prev.title) : "")}</span></button>
+        <button type="button" data-go="1" ${next ? "" : "disabled"}><small>${t("info.next")}</small><span>${esc(next ? L(next.title) : "")}</span></button>
       </div>` : ""}`;
     $("#modalInfo").scrollTop = 0;
   }
@@ -439,20 +502,34 @@
 
     if (s.video) {
       const v = parseVideo(s.video);
-      const ratio = s.ratio || p.ratio || "16/9";
+      const known = s.ratio || p.ratio || "";
+      const ratio = known || "16/9";
       const [rw, rh] = ratio.split("/").map(Number);
       portrait = rh > rw;
       const url = embedUrl(v);
-      media.innerHTML = `<div class="player${portrait ? " player--portrait" : ""}" style="--ratio:${ratio}">${
+      media.innerHTML = `<div class="player${portrait ? " player--portrait" : ""}${!known && !url ? " is-sizing" : ""}" style="--ratio:${ratio}">${
         url
           ? `<iframe src="${esc(url)}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${esc(L(p.title))}"></iframe>`
           : `<video src="${esc(v.src)}" ${s.poster ? `poster="${esc(s.poster)}"` : ""} controls autoplay playsinline preload="auto"></video>`
       }</div>`;
       const vid = $("video", media);
-      if (vid) vid.play().catch(() => { vid.muted = true; vid.play().catch(() => {}); });
+      if (vid) {
+        vid.play().catch(() => { vid.muted = true; vid.play().catch(() => {}); });
+        // no ratio given: read it from the file itself
+        const pl = vid.parentNode;
+        const size = () => {
+          pl.classList.remove("is-sizing");
+          if (!vid.videoWidth) return;
+          const por = vid.videoHeight > vid.videoWidth;
+          pl.style.setProperty("--ratio", `${vid.videoWidth}/${vid.videoHeight}`);
+          pl.classList.toggle("player--portrait", por);
+          stage.classList.toggle("is-portrait", por);
+        };
+        if (!known) { vid.addEventListener("loadedmetadata", size, { once: true }); setTimeout(() => pl.classList.remove("is-sizing"), 1500); }
+      }
     } else {
       const src = mediaSrc(s);
-      media.innerHTML = `<img src="${esc(src)}" alt="${esc(L(p.title))}${s.caption ? " — " + esc(L(s.caption)) : ""}">`;
+      media.innerHTML = `<img src="${esc(src)}" alt="${esc(L(p.title))}${s.caption ? ", " + esc(L(s.caption)) : ""}">`;
       const img = $("img", media);
       img.addEventListener("click", (e) => {
         img.classList.toggle("is-zoomed");
@@ -465,7 +542,7 @@
     stage.classList.toggle("is-portrait", portrait);
     $("#stagePrev").hidden = $("#stageNext").hidden = slides.length < 2 && M.list.length < 2;
     const cap = s.caption ? L(s.caption) : "";
-    $("#stageCounter").textContent = [slides.length > 1 ? `${M.slide + 1} / ${slides.length}` : "", cap].filter(Boolean).join(" — ");
+    $("#stageCounter").textContent = [slides.length > 1 ? `${M.slide + 1} / ${slides.length}` : "", cap].filter(Boolean).join("  ·  ");
     $("#stageCounter").hidden = slides.length < 2 && !cap;
     $$("#thumbs button").forEach((b, i) => {
       b.classList.toggle("is-active", i === M.slide);
@@ -674,13 +751,10 @@
   function runLoader(done) {
     const loader = $("#loader");
     if (reduceMotion) { loader.classList.add("is-done"); return done(); }
-    let n = 0;
-    const iv = setInterval(() => {
-      n = Math.min(100, n + Math.ceil(Math.random() * 12));
-      $("#loaderCount").textContent = n;
-      $("#loaderBar").style.width = n + "%";
-      if (n >= 100) { clearInterval(iv); setTimeout(() => { loader.classList.add("is-done"); done(); }, 250); }
-    }, 60);
+    let fired = false;
+    const finish = () => { if (fired) return; fired = true; loader.classList.add("is-done"); done(); };
+    if (document.readyState === "complete") setTimeout(finish, 350);
+    else { addEventListener("load", () => setTimeout(finish, 150), { once: true }); setTimeout(finish, 1200); }
   }
 
   /* ---------------- Init ---------------- */

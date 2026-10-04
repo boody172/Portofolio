@@ -3,25 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Portfolio — Marketing & Architecture</title>
-  <meta name="description" content="بورتفوليو أعمال التسويق والعمارة والتصميم — فيديوهات وصور تفاعلية." />
-  <meta name="theme-color" content="#0b0b0d" />
-  <meta property="og:title" content="Portfolio — Marketing & Architecture" />
-  <meta property="og:description" content="أعمال التسويق والعمارة والتصميم" />
-  <meta property="og:type" content="website" />
+  <title>Abdelrahman Samy | Architect & Visual Content Creator</title>
+  <meta name="description" content="عبدالرحمن سامي، معماري في الدمام وصانع محتوى بصري. أعمال العمارة والتصميم الداخلي، وفيديوهات وتصاميم تسويقية. Abdelrahman Samy, architect and visual content creator based in Dammam." />
+  <meta name="author" content="Abdelrahman Samy" />
+  <meta name="theme-color" content="#121110" />
+  <link rel="canonical" href="https://abdelrahman-samy-portofolio.vercel.app/" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://abdelrahman-samy-portofolio.vercel.app/" />
+  <meta property="og:title" content="Abdelrahman Samy | Architect & Visual Content Creator" />
+  <meta property="og:description" content="Architecture, interiors, product videos and ad design. Based in Dammam, Saudi Arabia." />
+  <meta property="og:image" content="https://abdelrahman-samy-portofolio.vercel.app/assets/media/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="apple-touch-icon" href="assets/media/profile.jpg" />
+  <link rel="preload" href="assets/fonts/noto-naskh-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/amiri-arabic-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/css/fonts.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body data-world="home">
   <!-- Loader -->
   <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader__inner">
-      <span class="loader__count" id="loaderCount">0</span>
-      <span class="loader__bar"><i id="loaderBar"></i></span>
-    </div>
+    <span class="loader__mark">AS</span>
   </div>
 
   <!-- Custom cursor (desktop only) -->
@@ -30,7 +35,7 @@
   <!-- Navigation -->
   <header class="nav" id="nav">
     <a href="#/" class="nav__logo" data-link>
-      <span class="nav__mark"></span>
+      <span class="nav__mark" aria-hidden="true">AS</span>
       <span class="nav__name" data-profile="name"></span>
     </a>
     <nav class="nav__links" id="navLinks">
@@ -54,7 +59,8 @@
           <img class="hero-id__photo" data-profile-photo alt="" width="56" height="56" />
           <span class="hero-id__text"><strong data-profile="name"></strong><span data-profile="role"></span></span>
         </a>
-        <h1 class="split__title" data-profile="tagline"></h1>
+        <h1 class="split__title" data-profile="headline"></h1>
+        <div class="hero-ctas" id="heroCtas"></div>
         <p class="split__hint" data-i18n="home.choose"></p>
       </div>
       <a href="#/marketing" data-link class="panel panel--marketing" data-cursor="enter">
@@ -81,7 +87,7 @@
       </a>
     </section>
 
-    <div class="marquee" aria-hidden="true"><div class="marquee__track" id="marquee"></div></div>
+    <div class="hire" id="hire"></div>
 
     <section class="section featured">
       <div class="section__head reveal">
@@ -109,6 +115,7 @@
           <p class="about__text" data-profile="about"></p>
           <div class="creds" id="creds"></div>
           <div class="stats" id="stats"></div>
+          <div class="downloads" id="downloads"></div>
         </div>
       </div>
       <div class="about__more">
@@ -165,6 +172,7 @@
       <p class="eyebrow" data-i18n="contact.eyebrow"></p>
       <h2 class="contact__title" data-i18n="contact.title"></h2>
       <a class="contact__mail" id="contactMail" data-cursor="mail"></a>
+      <a class="contact__phone" id="contactPhone" dir="ltr"></a>
       <div class="socials" id="socials"></div>
     </div>
     <div class="footer">
@@ -190,9 +198,12 @@
     </div>
   </div>
 
-  <noscript><p style="padding:2rem;color:#fff">يرجى تفعيل JavaScript لعرض الأعمال.</p></noscript>
+  <noscript><p style="padding:2rem;color:#fff">فعّل JavaScript عشان تشوف الأعمال.</p></noscript>
 
-  <script src="assets/js/data.js"></script>
+  <!-- المحتوى: عدّل الملفات دي بس -->
+  <script src="assets/content/profile.js"></script>
+  <script src="assets/content/marketing.js"></script>
+  <script src="assets/content/architecture.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
